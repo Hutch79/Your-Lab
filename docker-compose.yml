@@ -1,0 +1,6 @@
+﻿services:
+  your-lab:
+    image: your-lab
+    build:
+      context: .
+      dockerfile: Your-Lab/Dockerfile
