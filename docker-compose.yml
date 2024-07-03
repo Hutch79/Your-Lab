@@ -3,4 +3,4 @@
     image: your-lab
     build:
       context: .
-      dockerfile: Your-Lab/Dockerfile
+      dockerfile: API/Dockerfile
