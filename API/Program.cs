@@ -1,3 +1,6 @@
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +10,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<YourLabDbContext>(context =>
+{
+    context.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+    var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
+    context.UseSqlServer(connectionString);
+});
+
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+
+var context = scope.ServiceProvider.GetRequiredService<YourLabDbContext>();
+context.Database.Migrate();
 
 // Configure the HTTP request pipeline.
 // if (app.Environment.IsDevelopment())
@@ -18,6 +33,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+// app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
