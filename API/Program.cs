@@ -16,7 +16,8 @@ builder.Services.AddDbContext<YourLabDbContext>(context =>
 {
     context.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
-    context.UseSqlServer(connectionString);
+    connectionString = "Host=db; Database=dev-db; Username=user; Password=password";
+    context.UseNpgsql(connectionString);
 });
 
 
