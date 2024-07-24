@@ -6,9 +6,11 @@
       dockerfile: API/Dockerfile
     ports:
       - 8080:8080
+    depends_on:
+      - db
 
-  db:
-    image: postgres
+  postgres:
+    image: postgres:16
     restart: always
     environment:
       - POSTGRES_PASSWORD=password
