@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Your_Lab.Controllers;
@@ -28,5 +29,10 @@ public class WeatherForecastController : ControllerBase
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+    }
+
+    public IDictionary Test()
+    {
+        return Environment.GetEnvironmentVariables();
     }
 }

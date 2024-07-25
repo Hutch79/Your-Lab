@@ -15,12 +15,30 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<YourLabDbContext>(context =>
 {
     context.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
+    string connectionString = String.Empty;
+
+    if (builder.Environment.IsProduction())
+    {
+        var dbHost = Environment.GetEnvironmentVariable("dbHost");
+        var dbPort = Environment.GetEnvironmentVariable("dbPort");
+        var dbName = Environment.GetEnvironmentVariable("dbName");
+        var dbUser = Environment.GetEnvironmentVariable("dbUser");
+        var dbPassword = Environment.GetEnvironmentVariable("dbPassword");
+
+        connectionString = $"Server={dbHost}:{dbPort};Database={dbName};User ID={dbUser};Password={dbPassword};";
+        Console.WriteLine(connectionString);
+
+    }
+    else if (builder.Environment.IsDevelopment())
+    {
+        connectionString = builder.Configuration.GetConnectionString("SqlConnectionString")!;
+    }
+
     context.UseSqlServer(connectionString);
 });
 
 
-builder.Services.AddRateLimiter(_ => _  // Rate limiting to 100 requests per minute
+builder.Services.AddRateLimiter(_ => _ // Rate limiting to 100 requests per minute
     .AddFixedWindowLimiter(policyName: "fixed", options =>
     {
         options.PermitLimit = 25;
