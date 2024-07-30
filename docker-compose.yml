@@ -4,3 +4,21 @@
     build:
       context: .
       dockerfile: API/Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - DB__Host: "postgres"
+      - DB__Port: "5432"
+      - DB__Database: "postgres"
+      - DB__User: "dev"
+      - DB__Password: "dev-pw"
+
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=dev-pw
+      - POSTGRES_USER=dev
+      - POSTGRES_DB=dev-db
