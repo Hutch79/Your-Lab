@@ -14,13 +14,18 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<YourLabDbContext>(context =>
 {
+    var dbHost = Environment.GetEnvironmentVariable("DB__Host");
+    var dbPort = Environment.GetEnvironmentVariable("DB__Port");
+    var dbDatabase = Environment.GetEnvironmentVariable("DB__Database");
+    var dbUser = Environment.GetEnvironmentVariable("DB__User");
+    var dbPassword = Environment.GetEnvironmentVariable("DB__Password");
+
     context.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
-    connectionString = "Host=db; Database=dev-db; Username=user; Password=password";
+    var connectionString = $"Host={dbHost}:{dbPort}; Database={dbDatabase}; Username={dbUser}; Password={dbPassword}";
     context.UseNpgsql(connectionString);
 });
 
-
+// ToDo: Rate limit options as env variables
 builder.Services.AddRateLimiter(_ => _  // Rate limiting to 100 requests per minute
     .AddFixedWindowLimiter(policyName: "fixed", options =>
     {
@@ -44,8 +49,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseRateLimiter();
+app.UseHttpsRedirection();
 
 // app.UseAuthentication();
 app.UseAuthorization();
