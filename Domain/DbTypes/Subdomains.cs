@@ -1,4 +1,4 @@
-namespace Domain;
+namespace Domain.DbTypes;
 
 public class Subdomains
 {
@@ -6,4 +6,5 @@ public class Subdomains
     public required int DomainId { get; set; }
     public required int UserId { get; set; }
     public required string SubdomainName { get; set; }
+    public int[]? DnsRecordId { get; set; }
 }
