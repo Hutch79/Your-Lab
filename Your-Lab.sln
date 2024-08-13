@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{D027
 		scripts\dbScript.ps1 = scripts\dbScript.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Applikation", "Applikation\Applikation.csproj", "{F909C450-1FDF-4579-BCF8-AE2FE66C7551}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{F909C450-1FDF-4579-BCF8-AE2FE66C7551}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B0AA861A-78A9-44BC-A4BF-521ED3E2BAAD}"
 EndProject
