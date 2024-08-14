@@ -1,0 +1,35 @@
+name: Feature Request
+description: Suggest an idea for this project.
+labels: feature
+body:
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Welcome!
+      description: |
+        The issue tracker is for reporting bugs and feature requests only.
+        For support questions, please use the [Q&A Discussions](https://github.com/Hutch79/Your-Lab/discussions/categories/q-a).
+
+        DO NOT FILE ISSUES FOR GENERAL SUPPORT QUESTIONS.
+
+      options:
+        - label: Yes, I've searched similar issues on [GitHub](https://github.com/Hutch79/Your-Lab/issues) and didn't find any.
+          required: true
+        - label: Yes, I've searched similar issues on the [Discussions](https://github.com/Hutch79/Your-Lab/discussions?discussions_q=) and didn't find any.
+          required: true
+
+  - type: textarea
+    attributes:
+      label: What would you like to see?
+      description: |
+        How to write a good feature request?
+
+        - The title should be short and descriptive.
+        - Explain what your request is about.
+        - The context should lead to something, an idea or a problem that you’re facing.
+        - What would be the benefit if this feature got implemented?
+        - Remain clear and concise.
+        - Format your messages to help the reader focus on what matters and understand the structure of your message, use [Markdown syntax](https://help.github.com/articles/github-flavored-markdown)
+      placeholder: Feature xyz is missing
+    validations:
+      required: true
