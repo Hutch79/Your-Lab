@@ -1,6 +1,7 @@
 name: Feature Request
 description: Suggest an idea for this project.
 labels: Feature
+projects: Hutch79/5
 body:
   - type: checkboxes
     id: terms

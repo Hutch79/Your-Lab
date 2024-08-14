@@ -1,6 +1,7 @@
 name: 🐛 Bug Report
 description: Create a Bug report to help us improve.
 labels: Bug
+projects: Hutch79/5
 body:
   - type: checkboxes
     id: terms
