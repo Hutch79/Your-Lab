@@ -1,6 +1,4 @@
-using System.Threading.RateLimiting;
 using Infrastructure;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,10 +25,12 @@ builder.Services.AddDbContext<YourLabDbContext>(context =>
     Console.WriteLine(connectionString);
 
     context.UseSqlServer(connectionString);
+    var connectionString = $"Host={dbHost}:{dbPort}; Database={dbDatabase}; Username={dbUser}; Password={dbPassword}";
+    context.UseNpgsql(connectionString);
 });
 
-
-builder.Services.AddRateLimiter(_ => _ // Rate limiting to 100 requests per minute
+// ToDo: Rate limit options as env variables
+builder.Services.AddRateLimiter(_ => _  // Rate limiting to 100 requests per minute
     .AddFixedWindowLimiter(policyName: "fixed", options =>
     {
         options.PermitLimit = 25;
@@ -53,8 +53,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseRateLimiter();
+app.UseHttpsRedirection();
 
 // app.UseAuthentication();
 app.UseAuthorization();
