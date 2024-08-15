@@ -17,22 +17,14 @@ builder.Services.AddDbContext<YourLabDbContext>(context =>
     context.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     string connectionString = String.Empty;
 
-    if (builder.Environment.IsProduction())
-    {
-        var dbHost = Environment.GetEnvironmentVariable("dbHost");
-        var dbPort = Environment.GetEnvironmentVariable("dbPort");
-        var dbName = Environment.GetEnvironmentVariable("dbName");
-        var dbUser = Environment.GetEnvironmentVariable("dbUser");
-        var dbPassword = Environment.GetEnvironmentVariable("dbPassword");
+    var dbHost = builder.Configuration.GetValue<string>("YOUR_LAB:DB:HOST");
+    var dbPort = builder.Configuration.GetValue<int>("YOUR_LAB:DB:PORT");
+    var dbDatabase = builder.Configuration.GetValue<string>("YOUR_LAB:DB:DATABASE");
+    var dbUser = builder.Configuration.GetValue<string>("YOUR_LAB:DB:USER");
+    var dbPassword = builder.Configuration.GetValue<string>("YOUR_LAB:DB:PASSWORD");
 
-        connectionString = $"Server={dbHost}:{dbPort};Database={dbName};User ID={dbUser};Password={dbPassword};";
-        Console.WriteLine(connectionString);
-
-    }
-    else if (builder.Environment.IsDevelopment())
-    {
-        connectionString = builder.Configuration.GetConnectionString("SqlConnectionString")!;
-    }
+    connectionString = $"Host={dbHost}:{dbPort}; Database={dbDatabase}; Username={dbUser}; Password={dbPassword}";
+    Console.WriteLine(connectionString);
 
     context.UseSqlServer(connectionString);
 });
