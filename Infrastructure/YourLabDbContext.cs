@@ -31,7 +31,7 @@ namespace Infrastructure
         public YourLabDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<YourLabDbContext>();
-            optionsBuilder.UseSqlServer();
+            optionsBuilder.UseNpgsql();
 
             return new YourLabDbContext(optionsBuilder.Options);
         }
