@@ -4,3 +4,24 @@
     build:
       context: .
       dockerfile: API/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      YOUR_LAB__DB__HOST: your-lab-db
+      YOUR_LAB__DB__PORT: 5432
+      YOUR_LAB__DB__DATABASE: your-labs-db
+      YOUR_LAB__DB__USER: user
+      YOUR_LAB__DB__PASSWORD: password
+    depends_on:
+      - your-lab-db
+
+  your-lab-db:
+    image: 'postgres:16'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: your-labs-db
+    volumes:
+      - ./dbData:/var/lib/postgresql/data
+

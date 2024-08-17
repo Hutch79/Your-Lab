@@ -15,12 +15,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<YourLabDbContext>(context =>
 {
     context.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
-    context.UseSqlServer(connectionString);
+    string connectionString = String.Empty;
+
+    var dbHost = builder.Configuration.GetValue<string>("YOUR_LAB:DB:HOST");
+    var dbPort = builder.Configuration.GetValue<int>("YOUR_LAB:DB:PORT");
+    var dbDatabase = builder.Configuration.GetValue<string>("YOUR_LAB:DB:DATABASE");
+    var dbUser = builder.Configuration.GetValue<string>("YOUR_LAB:DB:USER");
+    var dbPassword = builder.Configuration.GetValue<string>("YOUR_LAB:DB:PASSWORD");
+
+    connectionString = $"Host={dbHost}:{dbPort}; Database={dbDatabase}; Username={dbUser}; Password={dbPassword}";
+    Console.WriteLine(connectionString);
+
+    context.UseNpgsql(connectionString);
 });
 
-
-builder.Services.AddRateLimiter(_ => _  // Rate limiting to 100 requests per minute
+// ToDo: Rate limit options as env variables
+builder.Services.AddRateLimiter(_ => _ // Rate limiting to 100 requests per minute
     .AddFixedWindowLimiter(policyName: "fixed", options =>
     {
         options.PermitLimit = 25;
@@ -43,8 +53,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseRateLimiter();
+app.UseHttpsRedirection();
 
 // app.UseAuthentication();
 app.UseAuthorization();

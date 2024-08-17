@@ -1,5 +1,4 @@
-﻿using Domain;
-using Domain.DbTypes;
+﻿using Domain.DbTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
@@ -32,7 +31,7 @@ namespace Infrastructure
         public YourLabDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<YourLabDbContext>();
-            optionsBuilder.UseSqlServer();
+            optionsBuilder.UseNpgsql();
 
             return new YourLabDbContext(optionsBuilder.Options);
         }
