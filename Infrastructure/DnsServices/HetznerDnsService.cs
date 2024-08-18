@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.DnsServices;
 
-public class HetznerDns : IDnsProvider
+public class HetznerDnsService : IDnsProvider
 {
     private readonly string _apiToken;
     private IDnsProvider _dnsProviderImplementation;
 
-    public HetznerDns(string apiToken)
+    public HetznerDnsService(string apiToken)
     {
         _apiToken = apiToken;
     }

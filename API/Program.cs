@@ -31,9 +31,10 @@ builder.Services.AddDbContext<YourLabDbContext>(context =>
 setup.SetupRateLimiter();
 
 var hetznerApiToken = builder.Configuration.GetValue<string>("YOUR_LAB:API_TOKEN:HETZNER_DNS");
-var HetznerDns = new HetznerDns(hetznerApiToken);
-var response = await HetznerDns.GetDnsRecords("wDU2E4E7pFZoJiFyGnt9E3");
-Console.WriteLine(response.Records.First());
+var HetznerDns = new CloudflareDnsService(hetznerApiToken);
+// var response = await HetznerDns.GetDnsRecords("wDU2E4E7pFZoJiFyGnt9E3");
+var response = await HetznerDns.GetDnsRecords("2bbac90d6c425945fbbb8dd879abc30c"); // CF
+// Console.WriteLine(response.Records.First());
 
 
 var app = builder.Build();

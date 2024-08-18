@@ -1,4 +1,4 @@
-namespace Domain.DbTypes;
+namespace Domain.DbObjects;
 
 public class User
 {
