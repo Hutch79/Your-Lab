@@ -11,6 +11,11 @@
       YOUR_LAB__DB__DATABASE: your-labs-db
       YOUR_LAB__DB__USER: user
       YOUR_LAB__DB__PASSWORD: password
+      YOUR_LAB__API_TOKEN__HETZNER_DNS: xxxxxxxxxxxxxxxxx
+      YOUR_LAB__API__TOKEN_LIMIT: 100
+      YOUR_LAB__API__TOKENS_PER_PERIOD: 1
+      YOUR_LAB__API__REPLENISHMENT_PERIOD_MS: 600
+      YOUR_LAB__API__QUEUE_LIMIT: 0
     depends_on:
       - your-lab-db
 

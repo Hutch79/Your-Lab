@@ -1,9 +1,10 @@
-using System.Threading.RateLimiting;
 using Infrastructure;
-using Microsoft.AspNetCore.RateLimiting;
+using Infrastructure.DnsServices;
 using Microsoft.EntityFrameworkCore;
+using Your_Lab;
 
 var builder = WebApplication.CreateBuilder(args);
+var setup = new Setup(builder);
 
 // Add services to the container.
 
@@ -18,26 +19,22 @@ builder.Services.AddDbContext<YourLabDbContext>(context =>
     string connectionString = String.Empty;
 
     var dbHost = builder.Configuration.GetValue<string>("YOUR_LAB:DB:HOST");
-    var dbPort = builder.Configuration.GetValue<int>("YOUR_LAB:DB:PORT");
+    var dbPort = builder.Configuration.GetValue<int>("YOUR_LAB:DB:PORT", defaultValue: 5432);
     var dbDatabase = builder.Configuration.GetValue<string>("YOUR_LAB:DB:DATABASE");
     var dbUser = builder.Configuration.GetValue<string>("YOUR_LAB:DB:USER");
     var dbPassword = builder.Configuration.GetValue<string>("YOUR_LAB:DB:PASSWORD");
 
     connectionString = $"Host={dbHost}:{dbPort}; Database={dbDatabase}; Username={dbUser}; Password={dbPassword}";
-    Console.WriteLine(connectionString);
-
     context.UseNpgsql(connectionString);
 });
 
-// ToDo: Rate limit options as env variables
-builder.Services.AddRateLimiter(_ => _ // Rate limiting to 100 requests per minute
-    .AddFixedWindowLimiter(policyName: "fixed", options =>
-    {
-        options.PermitLimit = 25;
-        options.Window = TimeSpan.FromSeconds(15);
-        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        options.QueueLimit = 2;
-    }));
+setup.SetupRateLimiter();
+
+var hetznerApiToken = builder.Configuration.GetValue<string>("YOUR_LAB:API_TOKEN:HETZNER_DNS");
+var HetznerDns = new HetznerDns(hetznerApiToken);
+var response = await HetznerDns.GetDnsRecords("wDU2E4E7pFZoJiFyGnt9E3");
+Console.WriteLine(response.Records.First());
+
 
 var app = builder.Build();
 

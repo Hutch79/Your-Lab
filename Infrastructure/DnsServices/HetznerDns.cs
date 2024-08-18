@@ -1,7 +1,6 @@
-using System.Net.Http.Headers;
 using System.Text;
-using Domain;
 using Domain.Dtos.Dns;
+using Domain.ExternalObjects.DNS.Hetzner;
 using Infrastructure.Interfaces;
 using Newtonsoft.Json;
 
@@ -10,6 +9,7 @@ namespace Infrastructure.DnsServices;
 public class HetznerDns : IDnsProvider
 {
     private readonly string _apiToken;
+    private IDnsProvider _dnsProviderImplementation;
 
     public HetznerDns(string apiToken)
     {
@@ -23,7 +23,20 @@ public class HetznerDns : IDnsProvider
 
     public DnsRecordDto[] GetDnsRecords()
     {
-        throw new NotImplementedException();
+        return _dnsProviderImplementation.GetDnsRecords();
+    }
+
+    public async Task<HetznerDnsRecords> GetDnsRecords(string zoneId)
+    {
+        var url = $"https://dns.hetzner.com/api/v1/records?zone_id={zoneId}";
+        var client = new HttpClient();
+        // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Auth-API-Token", _apiToken);
+        client.DefaultRequestHeaders.Add("Auth-API-Token", _apiToken);
+        var response = await client.GetAsync(url);
+        var responseBody = response.Content.ReadAsStringAsync().Result;
+        var dnsRewords = JsonConvert.DeserializeObject<HetznerDnsRecords>(responseBody);
+
+        return dnsRewords;
     }
 
     public async Task CreateDnsRecord(DnsRecordDto dnsRecordDto)
