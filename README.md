@@ -6,15 +6,16 @@ Anyone can obtain a free third-level domain (subdomain) that they can manage ind
 
 Currently, planned features will be either entirely free to use or have a free starting plan. Our goal is that the cost per feature should never exceed 5$ a year.
 
-
 ## Roadmap
 
 Please keep in mind that these plans are more conceptual than concrete.   
 They may change at any time and should not be considered a guarantee.  
+
 - DynDNS
 - Web Redirects (Subdomain redirecting to XYZ)
 - URL-Shortener (With personal Your-Lab domain)
 - Mail Redirect
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
