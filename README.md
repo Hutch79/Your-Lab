@@ -15,7 +15,7 @@ They may change at any time and should not be considered a guarantee.
 - Web Redirects (Subdomain redirecting to XYZ)
 - URL-Shortener (With personal Your-Lab domain)
 - Mail Redirect
-- 
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
