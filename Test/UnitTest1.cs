@@ -1,3 +1,5 @@
+using Domain;
+
 namespace Test;
 
 public class UnitTest1
@@ -9,6 +11,13 @@ public class UnitTest1
         // What did you expect, im lazy!
         // Ok, jokes aside. There will be unit tests which will be (hopefully) better than this.
         // But currently there are none.
-        Assert.True(true);
+
+        var user = new User()
+        {
+            Email = "test@test.com",
+            Username = "test",
+        };
+
+        Assert.Equal("test@test.com", user.Email);
     }
 }
