@@ -1,9 +1,9 @@
-using System.Threading.RateLimiting;
 using Infrastructure;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using Your_Lab;
 
 var builder = WebApplication.CreateBuilder(args);
+var setup = new Setup(builder);
 
 // Add services to the container.
 
@@ -28,10 +28,10 @@ builder.Services.AddDbContext<YourLabDbContext>(context =>
 
 setup.SetupRateLimiter();
 
-var hetznerApiToken = builder.Configuration.GetValue<string>("YOUR_LAB:API_TOKEN:HETZNER_DNS");
-var HetznerDns = new CloudflareDnsService(hetznerApiToken);
+// var hetznerApiToken = builder.Configuration.GetValue<string>("YOUR_LAB:API_TOKEN:HETZNER_DNS");
+// var HetznerDns = new CloudflareDnsService(hetznerApiToken);
 // var response = await HetznerDns.GetDnsRecords("wDU2E4E7pFZoJiFyGnt9E3");
-var response = await HetznerDns.GetDnsRecords("2bbac90d6c425945fbbb8dd879abc30c"); // CF
+// var response = await HetznerDns.GetDnsRecords("2bbac90d6c425945fbbb8dd879abc30c"); // CF
 // Console.WriteLine(response.Records.First());
 
 
