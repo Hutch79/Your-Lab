@@ -12,7 +12,7 @@ public class UnitTest1
         // Ok, jokes aside. There will be unit tests which will be (hopefully) better than this.
         // But currently there are none.
 
-        var user = new User()
+        var user = new User
         {
             Email = "test@test.com",
             Username = "test",
