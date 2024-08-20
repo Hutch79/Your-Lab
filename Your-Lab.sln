@@ -21,6 +21,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B0AA861A-78A9-44BC-A4BF-521ED3E2BAAD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub-Actions", "GitHub-Actions", "{84E7E444-CAB6-49D1-93DB-6C11B88E3437}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\docker-image.yml = .github\workflows\docker-image.yml
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,5 +53,8 @@ Global
 		{B0AA861A-78A9-44BC-A4BF-521ED3E2BAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0AA861A-78A9-44BC-A4BF-521ED3E2BAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0AA861A-78A9-44BC-A4BF-521ED3E2BAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{84E7E444-CAB6-49D1-93DB-6C11B88E3437} = {3E27F210-D21B-4A7A-ADC3-950AA278E483}
 	EndGlobalSection
 EndGlobal
