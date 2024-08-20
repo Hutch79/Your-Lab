@@ -26,27 +26,32 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+
       - name: Restore dependencies
         run: dotnet restore
+
       - name: Build
         run: dotnet build --no-restore
+
       - name: Test
         run: dotnet test --no-build --verbosity normal  --collect:"XPlat Code Coverage"
+
       - name: Find coverage reports
         id: find-reports
         run: |
           echo "::set-output name=paths::$(find ${{ github.workspace }} -name "coverage.cobertura.xml")"
+
       - name: Send coverage-reports to Codacy
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: ${{ steps.find-reports.outputs.paths }}
 
-      # Configure environment variables for PostgreSQL connection
       - name: Configure PostgreSQL Credentials
         run: |
           echo "POSTGRES_HOST=localhost" >> $GITHUB_ENV
@@ -55,11 +60,9 @@ jobs:
           echo "POSTGRES_USER=your-lab-dev" >> $GITHUB_ENV
           echo "POSTGRES_PASSWORD=SuperSecurePassw0rd" >> $GITHUB_ENV
 
-      # Start your application locally
       - name: Run application
-        run: dotnet run &
+        run: dotnet run --project /home/runner/work/Your-Lab/Your-Lab/API/API.csproj &
 
-      # Wait for the application to start up
       - name: Wait for application startup
         run: sleep 30
 
@@ -72,6 +75,5 @@ jobs:
           rules_file_name: '.zap/rules.tsv' # Uncomment if using custom rules
           cmd_options: '-a' # Aggressive scanning enabled
 
-      # Stop application
       - name: Stop application
         run: pkill dotnet
