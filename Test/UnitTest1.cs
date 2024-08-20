@@ -9,7 +9,7 @@ public class UnitTest1
     {
         // Well, that's my testing...
         // What did you expect? I'm lazy!
-        // Ok, jokes aside, there will be unit tests which will (hopefully) be better than this.
+        // Ok, jokes aside, there will be unit tests which will be better than this.
         // But currently, there are none.
 
         var user = new User
