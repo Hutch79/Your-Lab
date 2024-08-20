@@ -38,19 +38,19 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
 
-          - name: Test
-            run: dotnet test --no-build --verbosity normal  --collect:"XPlat Code Coverage"
+      - name: Test
+        run: dotnet test --no-build --verbosity normal  --collect:"XPlat Code Coverage"
 
-          - name: Find coverage reports
-            id: find-reports
-            run: |
-              echo "::set-output name=paths::$(find ${{ github.workspace }} -name "coverage.cobertura.xml")"
+      - name: Find coverage reports
+        id: find-reports
+        run: |
+          echo "::set-output name=paths::$(find ${{ github.workspace }} -name "coverage.cobertura.xml")"
 
-          - name: Send coverage-reports to Codacy
-            uses: codacy/codacy-coverage-reporter-action@v1.3.0
-            with:
-              project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-              coverage-reports: ${{ steps.find-reports.outputs.paths }}
+      - name: Send coverage-reports to Codacy
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{ steps.find-reports.outputs.paths }}
 
       - name: Configure PostgreSQL Credentials
         run: |
