@@ -1,6 +1,8 @@
 ﻿services:
   your-lab:
     image: your-lab
+    ports:
+      - 8080:8080
     build:
       context: .
       dockerfile: API/Dockerfile
