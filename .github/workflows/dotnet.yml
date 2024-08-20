@@ -54,11 +54,11 @@ jobs:
 
       - name: Configure PostgreSQL Credentials
         run: |
-          echo "POSTGRES_HOST=localhost" >> $GITHUB_ENV
-          echo "POSTGRES_PORT=5432" >> $GITHUB_ENV
-          echo "POSTGRES_DB=your-lab-dev-db" >> $GITHUB_ENV
-          echo "POSTGRES_USER=your-lab-dev" >> $GITHUB_ENV
-          echo "POSTGRES_PASSWORD=SuperSecurePassw0rd" >> $GITHUB_ENV
+          echo "YOUR_LAB__DB__HOST=localhost" >> $GITHUB_ENV
+          echo "YOUR_LAB__DB__PORT=5432" >> $GITHUB_ENV
+          echo "YOUR_LAB__DB__DATABASE=your-lab-dev-db" >> $GITHUB_ENV
+          echo "YOUR_LAB__DB__USER=your-lab-dev" >> $GITHUB_ENV
+          echo "YOUR_LAB__DB__PASSWORD=SuperSecurePassw0rd" >> $GITHUB_ENV
 
       - name: Run application
         run: dotnet run --project /home/runner/work/Your-Lab/Your-Lab/API/API.csproj &
