@@ -1,10 +1,9 @@
+using System.Threading.RateLimiting;
 using Infrastructure;
-using Infrastructure.DnsServices;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
-using Your_Lab;
 
 var builder = WebApplication.CreateBuilder(args);
-var setup = new Setup(builder);
 
 // Add services to the container.
 
@@ -16,7 +15,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<YourLabDbContext>(context =>
 {
     context.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    string connectionString = String.Empty;
 
     var dbHost = builder.Configuration.GetValue<string>("YOUR_LAB:DB:HOST");
     var dbPort = builder.Configuration.GetValue<int>("YOUR_LAB:DB:PORT", defaultValue: 5432);
@@ -24,7 +22,7 @@ builder.Services.AddDbContext<YourLabDbContext>(context =>
     var dbUser = builder.Configuration.GetValue<string>("YOUR_LAB:DB:USER");
     var dbPassword = builder.Configuration.GetValue<string>("YOUR_LAB:DB:PASSWORD");
 
-    connectionString = $"Host={dbHost}:{dbPort}; Database={dbDatabase}; Username={dbUser}; Password={dbPassword}";
+    var connectionString = $"Host={dbHost}:{dbPort}; Database={dbDatabase}; Username={dbUser}; Password={dbPassword}";
     context.UseNpgsql(connectionString);
 });
 
