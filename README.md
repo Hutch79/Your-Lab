@@ -1,6 +1,7 @@
 # Your-Lab.ch
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/36d7c8c819c54290b38fe24b3ce3d949)](https://app.codacy.com/gh/Hutch79/Your-Lab?utm_source=github.com&utm_medium=referral&utm_content=Hutch79/Your-Lab&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/7873b7d922a348d081afd330d60f21e6)](https://app.codacy.com/gh/Hutch79/Your-Lab/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 The goal of Your-Lab.ch is to (hopefully) lower the hurdle for beginners to get started with an IT project.
 Anyone can obtain a free third-level domain (subdomain) that they can manage independently.
