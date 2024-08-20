@@ -70,9 +70,18 @@ jobs:
         uses: zaproxy/action-api-scan@v0.7.0
         with:
           format: openapi
-          token: ${{ secrets.GITHUB_TOKEN }}
           target: 'http://localhost:5209/swagger/v1/swagger.json'
           cmd_options: '-a' # Aggressive scanning enabled
+          allow_issue_writing: false
+
+      - name: Upload ZAP Report to Codacy
+        run: |
+          curl -X POST https://app.codacy.com/api/v3/organizations/gh/Hutch79/security/tools/dast/ZAP/reports \
+            -H "api-token: ${{ secrets.CODACY_ACOUNT_TOKEN }}" \
+            -H "Content-Type: multipart/form-data" \
+            -H "Accept: application/json" \
+            -F "file=report_json.json" \
+            -F "reportFormat=json"
 
       - name: Stop application
         run: pkill dotnet
