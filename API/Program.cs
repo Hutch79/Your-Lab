@@ -1,6 +1,7 @@
 using System.Threading.RateLimiting;
 using Infrastructure;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,11 +15,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<YourLabDbContext>(context =>
 {
-    var dbHost = Environment.GetEnvironmentVariable("DB__Host");
+    var dbHost = Environment.GetEnvironmentVariable("DB__Host");  // TODO: Connection string builder
     var dbPort = Environment.GetEnvironmentVariable("DB__Port");
     var dbDatabase = Environment.GetEnvironmentVariable("DB__Database");
     var dbUser = Environment.GetEnvironmentVariable("DB__User");
     var dbPassword = Environment.GetEnvironmentVariable("DB__Password");
+
+
+    SqlConnectionStringBuilder hui = new(); // TODO: USE IT!!!! Aber für Postgres guggen obs funzt
+    hui.Password = dbPassword;
 
     context.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     var connectionString = $"Host={dbHost}:{dbPort}; Database={dbDatabase}; Username={dbUser}; Password={dbPassword}";
